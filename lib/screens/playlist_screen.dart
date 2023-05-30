@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_main/screens/playlist_tile_screen.dart';
+import 'package:project_main/widget/dialogue_box.dart';
 import 'package:project_main/widget/playlist_box_tile.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -35,13 +36,46 @@ class PlaylistScreen extends StatelessWidget {
                 mainAxisSpacing: 10,
                 crossAxisCount: 2),
                itemBuilder: (context, index) {
+                if (index == 0) {
+                  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: GestureDetector(
+      onTap: () {
+        openDialog(context);
+      },
+      child: Container(     
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                   gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color(0xFFDDDDDD), Color(0xFFA1A1A1)],
+                    stops: [0, 1])),
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                     backgroundColor: Color(0xFFD9D9D9),
+                      child: Icon(Icons.add,size: 25,color: Colors.black,),
+                      radius: 25,),
+                      Padding(
+                     padding: const EdgeInsets.only(top: 7),
+                     child: Text("Add Playlist",style: GoogleFonts.crimsonPro(fontSize: 18,fontWeight: FontWeight.bold,color: Color(0xFF545252)),),
+                      )
+                      ],
+                  ),
+              ),
+    ),
+  );
+                }else{
                  return GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                       return PlaylistTileScreen();
                     },));
                   },
-                  child: tile(context));
+                  child:tile(context));}
                },),
           )
           ],
@@ -49,6 +83,8 @@ class PlaylistScreen extends StatelessWidget {
       ),
     );
   }
+  
+ 
 
 
 

@@ -19,7 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     ArtistScreen(),
     HomeScreen(),
     SearchScreen(),
-    SettingsScreen()
+    
    ];
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
          BottomNavigationBarItem(icon: Icon(Icons.person),label: "Artist",backgroundColor: Colors.black),
           BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home",backgroundColor: Colors.black),
            BottomNavigationBarItem(icon: Icon(Icons.search),label: "Search",backgroundColor: Colors.black),
-            BottomNavigationBarItem(icon: Icon(Icons.miscellaneous_services),label: "Settings",backgroundColor: Colors.black)
+          
 
       ]),
     );

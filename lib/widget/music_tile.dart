@@ -10,6 +10,15 @@ class musicTiles extends StatelessWidget {
     super.key,required this.name,required this.artist,required this.duration
   });
 
+
+   String _formatDuration(int duration) {
+    Duration d = Duration(milliseconds: duration);
+    String minutes = (d.inMinutes).toString().padLeft(2, '0');
+    String seconds = (d.inSeconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,7 +45,7 @@ class musicTiles extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: NetworkImage('https://images.macrumors.com/t/hi1_a2IdFGRGMsJ0x31SdD_IcRk=/1600x/article-new/2018/05/apple-music-note.jpg'),fit: BoxFit.cover)),
+                      image: AssetImage('asset/apple-music-note.jpg'),fit: BoxFit.cover)),
                   
                  ),
                ),
@@ -53,13 +62,13 @@ class musicTiles extends StatelessWidget {
                         
                         children: [
                             SizedBox(
-                              width:MediaQuery.of(context).size.width * .32,
+                              width:MediaQuery.of(context).size.width * .23,
                               child: Text(artist,style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 14),overflow: TextOverflow.ellipsis)),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 6,left: 10,right: 10),
-                            //   child: CircleAvatar(radius: 2,backgroundColor: Colors.black,),
-                            // ),
-                            // Text('$duration',style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 14),overflow: TextOverflow.ellipsis,)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6,left: 10,right: 10),
+                              child: CircleAvatar(radius: 2,backgroundColor: Colors.black,),
+                            ),
+                            Text(_formatDuration(duration),style: GoogleFonts.crimsonPro(fontSize: 15,fontWeight: FontWeight.w600),),
                         ],
                       )
                      

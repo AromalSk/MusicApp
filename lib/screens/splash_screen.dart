@@ -17,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  
 
     
   @override
@@ -36,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Color(0xFFCBCBCB),
       body: SizedBox(
         child: Image.asset('asset/hello.png'),
+        
       ),
     );
   }

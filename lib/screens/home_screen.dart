@@ -7,6 +7,7 @@ import 'package:project_main/screens/favorites_screen.dart';
 import 'package:project_main/screens/mostplayed_screen.dart';
 import 'package:project_main/screens/playlist_screen.dart';
 import 'package:project_main/screens/recently_played.dart';
+import 'package:project_main/screens/settings_screen.dart';
 import 'package:project_main/screens/song_screen.dart';
 import 'package:project_main/screens/splash_screen.dart';
 import 'package:project_main/widget/music_card.dart';
@@ -37,9 +38,21 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "My Music",
-                      style: GoogleFonts.crimsonPro(fontSize: 27, color: Colors.white),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "My Music",
+                          style: GoogleFonts.crimsonPro(fontSize: 27, color: Colors.white),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                              return SettingsScreen();
+                            },));
+                          },
+                          child: Icon(Icons.miscellaneous_services,color: Colors.white,size: 30,))
+                      ],
                     ),
                     SizedBox(height: 40,),
                   GridView.builder(
