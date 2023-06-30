@@ -9,11 +9,11 @@ Container mostPlayedTile() {
                     child: Row(
                       children: [
                        
-                        CircleAvatar(
+                        const CircleAvatar(
                           backgroundImage: NetworkImage("https://i.pinimg.com/170x/26/f1/ff/26f1ff753a4c2fc8454368b5679533d1.jpg"),
                           radius: 30,
                           ),
-                        Container(
+                        SizedBox(
                           width: 215,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 15),
@@ -24,19 +24,19 @@ Container mostPlayedTile() {
                                 Text("Bad guy",style: GoogleFonts.crimsonPro(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w800)),
                                 Row(
                                   children: [
-                                    Text("Billie eilish",style: GoogleFonts.crimsonPro(color: Color.fromARGB(255, 221, 221, 221),fontSize: 14,fontWeight: FontWeight.w500)),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
+                                    Text("Billie eilish",style: GoogleFonts.crimsonPro(color: const Color.fromARGB(255, 221, 221, 221),fontSize: 14,fontWeight: FontWeight.w500)),
+                                    const Padding(
+                                      padding: EdgeInsets.only(top: 5,left: 10,right: 10),
                                       child: CircleAvatar(radius: 3,backgroundColor:  Color.fromARGB(255, 221, 221, 221),),
                                     ),
-                                    Text("2:45",style: GoogleFonts.crimsonPro(color: Color.fromARGB(255, 221, 221, 221),fontSize: 16,fontWeight: FontWeight.w500))
+                                    Text("2:45",style: GoogleFonts.crimsonPro(color: const Color.fromARGB(255, 221, 221, 221),fontSize: 16,fontWeight: FontWeight.w500))
                                   ],
                                 )
                               ],
                             ),
                           ),
                         ),
-                       Text("123 Plays",style: GoogleFonts.crimsonPro(fontSize: 18,color: Color.fromARGB(255, 221, 221, 221)),)
+                       Text("123 Plays",style: GoogleFonts.crimsonPro(fontSize: 18,color: const Color.fromARGB(255, 221, 221, 221)),)
                       ],
                     ),
                    );

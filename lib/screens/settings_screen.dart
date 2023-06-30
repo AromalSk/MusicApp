@@ -17,7 +17,7 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: Colors.black,
           title: Text("Settings",style: GoogleFonts.crimsonPro(fontSize: 24,fontWeight: FontWeight.w600),),
           centerTitle: true,
-          bottom: TabBar(tabs: [
+          bottom: const TabBar(tabs: [
             Tab(text: 'About Us'),
             Tab(text: 'Privacy Policy',),
             Tab(text: 'Terms and condition',)
@@ -26,13 +26,13 @@ class SettingsScreen extends StatelessWidget {
         body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: AlignmentDirectional.bottomCenter,
                 colors: [Color.fromARGB(255, 64, 64, 64), Colors.black],
                 stops: [0, 0.5])),
-                child: TabBarView(children: [
+                child: const TabBarView(children: [
                   AboutUs(),
                   PrivacyPolicy(),
                   TermsAndConditions()

@@ -3,17 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project_main/screens/artist_main_screen.dart';
 import 'package:project_main/widget/artist_tile.dart';
 
-
 class ArtistScreen extends StatelessWidget {
   const ArtistScreen({super.key});
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: AlignmentDirectional.bottomCenter,
@@ -34,7 +33,10 @@ class ArtistScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 150),
                         child: Text(
                           "Artist",
-                          style: GoogleFonts.crimsonPro(color: Colors.white,fontSize: 24,fontWeight: FontWeight.w600),
+                          style: GoogleFonts.crimsonPro(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600),
                         ),
                       )
                     ],
@@ -44,36 +46,38 @@ class ArtistScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey,
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(100),
                     ),
                   ),
                 ),
-               SizedBox(height: 100,),
-                Container(
+                const SizedBox(
+                  height: 100,
+                ),
+                SizedBox(
                   height: 350,
                   width: double.infinity,
-                  child: ListView.builder(          
+                  child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                              return ArtistMainScreen();
-                            },));
-                          },
-                          child: artistTile()),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return const ArtistMainScreen();
+                                },
+                              ));
+                            },
+                            child: artistTile()),
                       );
                     },
                   ),
                 ),
-  
-               
               ],
             ),
           ),
@@ -81,6 +85,4 @@ class ArtistScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }

@@ -2,6 +2,7 @@
     package="com.example.project_main">
      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+     <uses-permission android:name="android.permission.RECORD_AUDIO" />
    <application
         android:label="project_main"
         android:name="${applicationName}"

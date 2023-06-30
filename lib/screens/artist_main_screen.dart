@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project_main/model/favourite/favouritefunction.dart';
 import 'package:project_main/screens/song_screen.dart';
-import 'package:project_main/widget/transparent_tile.dart';
+import 'package:project_main/screens/splash_screen.dart';
+
 
 class ArtistMainScreen extends StatelessWidget {
   const ArtistMainScreen({super.key});
@@ -15,17 +18,17 @@ class ArtistMainScreen extends StatelessWidget {
                      fontSize: 24,
                      fontWeight: FontWeight.w600)),
                      elevation: 0,
-                    backgroundColor: Color.fromARGB(255, 0, 0, 0),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                      centerTitle: true,
                       leading: IconButton(onPressed: (){
           Navigator.of(context).pop();
-        }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),
+        }, icon: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
                      
                      ),
       body: Container(
          height: double.infinity,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: AlignmentDirectional.bottomCenter,
@@ -40,7 +43,7 @@ class ArtistMainScreen extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             height: 250,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only
                               (bottomRight: Radius.circular(70),
                               bottomLeft: Radius.circular(70)),
@@ -56,17 +59,21 @@ class ArtistMainScreen extends StatelessWidget {
                             ),
                           ),
                            ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                      shrinkWrap: true,
                       itemCount: 30,
                       itemBuilder: (context, index) {
                        return GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                            return SongScreen();
+                            return  ValueListenableBuilder(valueListenable: favDbObject.listenable(), builder: (context, value, child) {
+                   bool contains=favDbObject.values.where((element) => element.id==Songall[index].id).isEmpty;
+                     return SongScreen(id: Songall[index].id!,isFav: contains,index: index,);
+                    },
+                    );
                           },));
                         },
-                        child: songTile(context));
+                       );
                      },)
                         ],
                       ),

@@ -12,7 +12,7 @@ Container musicCard(
            width:MediaQuery.of(context).size.width * 0.38,
            height: MediaQuery.of(context).size.height * 0.16,
               decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(16),
-               gradient: LinearGradient(
+               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [Color(0xFFCCCCCC), Color(0xFF999999)],
@@ -21,12 +21,12 @@ Container musicCard(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      backgroundColor: Color(0xFFD9D9D9),
-                    child: Icon(icon,size: 25,color: Colors.black,),
-                    radius: 25,),
+                      backgroundColor: const Color(0xFFD9D9D9),
+                    radius: 25,
+                    child: Icon(icon,size: 25,color: Colors.black,),),
                     Padding(
                       padding: const EdgeInsets.only(top: 7),
-                      child: Text(cardName,style: GoogleFonts.crimsonPro(fontSize: 18,fontWeight: FontWeight.bold,color: Color(0xFF545252)),),
+                      child: Text(cardName,style: GoogleFonts.crimsonPro(fontSize: 18,fontWeight: FontWeight.bold,color: const Color(0xFF545252)),),
                     )
                     ],
                 )

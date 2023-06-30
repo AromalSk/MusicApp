@@ -1,7 +1,15 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:project_main/screens/addtoplaylist_screen.dart';
+import 'package:project_main/screens/splash_screen.dart';
+
+// ignore: must_be_immutable
 class ThreeDotsTile extends StatelessWidget {
-  const ThreeDotsTile({super.key});
+  int index;
+  String name;
+ ThreeDotsTile({super.key,required this.index,required this.name});
 
  @override
   Widget build(BuildContext context) {
@@ -19,40 +27,67 @@ class ThreeDotsTile extends StatelessWidget {
                   children: [
                     IconButton(onPressed: (){
                       Navigator.of(context).pop();
-                    }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,))
+                    }, icon: const Icon(Icons.arrow_back_ios,color: Colors.white,))
                   ],
                 ),
-                SizedBox(height: 70,),
-                Container(
+                const SizedBox(height: 70,),
+                SizedBox(
                   height: 200,
                   width: 200,
-                  decoration: BoxDecoration(image: DecorationImage(image: NetworkImage("https://i.scdn.co/image/ab67706c0000da849a31b524409b664e6953359f"))),
+                  child:   QueryArtworkWidget(
+                  artworkHeight: MediaQuery.of(context).size.height * .45,
+                  artworkWidth: MediaQuery.of(context).size.width * .9,
+                  id: Songall[index].id!,
+                  type: ArtworkType.AUDIO,
+                  artworkFit: BoxFit.cover,
+                  artworkQuality: FilterQuality.high,
+                  size: 2000,
+                  quality: 100,
+                  artworkBorder: const BorderRadius.all(Radius.zero),
+                  nullArtworkWidget:      Container(
+                    height: MediaQuery.of(context).size.height * .45,
+                    width: MediaQuery.of(context).size.width * .9,
+                        // height: 370,
+                        // width: 200,
+                        decoration: const BoxDecoration(image: DecorationImage(image: NetworkImage("https://i.scdn.co/image/ab67706c0000da849a31b524409b664e6953359f"))),
+                      ),
+                 ),
+                 
                 ),
-                SizedBox(height: 10,),
-                Text("Song name",style: TextStyle(color: Colors.white,fontSize: 20)),
-                SizedBox(height: 100,),
-                ListTile(leading:IconButton(onPressed: (){}, icon:Icon(Icons.add_box_outlined) ,color: Colors.white,),
-                title: Text("Add to Playlist",style: TextStyle(color: Colors.white),),
+                const SizedBox(height: 10,),
+                 SizedBox(
+                  width: 300,
+                  child: Text(name,style: GoogleFonts.crimsonPro(color: Colors.white,fontSize: 24),overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,)),
+                const SizedBox(height: 100,),
+                GestureDetector(
+                  onTap: () {
+                   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                     return AddToPlaylistScreen(  song:Songall[index]);
+                   },));
+                  },
+                  child: ListTile(leading:IconButton(onPressed: (){}, icon:const Icon(Icons.add_box_outlined) ,color: Colors.white,),
+                  title: const Text("Add to Playlist",style: TextStyle(color: Colors.white),),
+                  ),
                 ),
-                ListTile(leading: IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: Colors.white,)),
-                title: Text("Edit",style: TextStyle(color: Colors.white),),
-                ),
+                // ListTile(leading: IconButton(onPressed: (){}, icon: const Icon(Icons.edit,color: Colors.white,)),
+                // title: const Text("Edit",style: TextStyle(color: Colors.white),),
+                // ),
                 ListTile(leading:IconButton(onPressed: (){
                   showDialog(context: context, builder: (context) {
                    return AlertDialog(
                       actions: [
                         TextButton(onPressed: (){
                           Navigator.of(context).pop();
-                        }, child: Text("Yes")),
+                        }, child: const Text("Yes")),
                           TextButton(onPressed: (){
                           Navigator.of(context).pop();
-                        }, child: Text("No")),
+                        }, child: const Text("No")),
                       ],
-                      content: Text("Do you want to Delete."),
+                      content: const Text("Do you want to Delete."),
                     );
                   },);
-                }, icon: Icon(Icons.delete_forever,color: Colors.white,)),
-                title: Text("Delete",style: TextStyle(color: Colors.white),),
+                }, icon: const Icon(Icons.delete_forever,color: Colors.white,)),
+                title: const Text("Delete",style: TextStyle(color: Colors.white),),
                 )
               ],
             ),

@@ -1,14 +1,40 @@
+
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:marquee/marquee.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:project_main/model/favourite/favouritefunction.dart';
+import 'package:project_main/model/model.dart';
+import 'package:project_main/screens/splash_screen.dart';
 import 'package:project_main/screens/threedots_tile.dart';
+import 'package:project_main/widget/fav_icon.dart';
 
-class musicTiles extends StatelessWidget {
+
+
+// ignore: camel_case_types
+class musicTiles extends StatefulWidget {
+
   String name;
   String artist;
   int duration;
+  int id;
+SongDetails song;
+int index;
    musicTiles({
-    super.key,required this.name,required this.artist,required this.duration
+    super.key,required this.name,required this.artist,required this.duration,required this.id,required this.song,required this.index
+
   });
+
+  @override
+  State<musicTiles> createState() => _musicTilesState();
+}
+
+// ignore: camel_case_types
+class _musicTilesState extends State<musicTiles> {
+ 
 
 
    String _formatDuration(int duration) {
@@ -18,6 +44,7 @@ class musicTiles extends StatelessWidget {
     return '$minutes:$seconds';
   }
 
+  bool songNotPresent = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +54,7 @@ class musicTiles extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.125,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.topLeft ,
             end: Alignment.bottomRight,
             colors: [Color.fromARGB(255, 173, 173, 173),Color(0xFFc3c3c3),Color(0xFFDBDBDB),Color(0xFFc3c3c3)],
@@ -39,36 +66,51 @@ class musicTiles extends StatelessWidget {
              children: [
                Padding(
                  padding: const EdgeInsets.only(left: 15),
-                 child: Container(
-                   height: MediaQuery.of(context).size.height * .1,
-                  width: MediaQuery.of(context).size.width * .2,
+                 child:
+                 QueryArtworkWidget(
+                  artworkHeight: MediaQuery.of(context).size.width * .15,
+                  artworkWidth: MediaQuery.of(context).size.width * .15,
+                  id: Songall[widget.index].id!,
+                  type: ArtworkType.AUDIO,
+                  artworkFit: BoxFit.cover,
+                  artworkQuality: FilterQuality.high,
+                  size: 2000,
+                  quality: 100,
+                  artworkBorder: BorderRadius.circular(50),
+                  nullArtworkWidget:  Container(
+                  height: MediaQuery.of(context).size.width * .15,
+                  width: MediaQuery.of(context).size.width * .15,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: AssetImage('asset/apple-music-note.jpg'),fit: BoxFit.cover)),
+                    borderRadius: BorderRadius.circular(100),
+                    image: const DecorationImage(
+                      image:  AssetImage('asset/apple-music-note.jpg'),fit: BoxFit.cover)),
                   
                  ),
+                  ),
+               
+               
                ),
                Padding(
                  padding: const EdgeInsets.only(left : 12),
-                 child: Container(
+                 child: SizedBox(
                    width: MediaQuery.of(context).size.width * .46,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(name,style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 18),overflow: TextOverflow.ellipsis,),
+                      Text(widget.name,style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 18),overflow: TextOverflow.ellipsis),
+                      // Text(widget.name,style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 18),overflow: TextOverflow.ellipsis,),
                       Row(
                         
                         children: [
                             SizedBox(
                               width:MediaQuery.of(context).size.width * .23,
-                              child: Text(artist,style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 14),overflow: TextOverflow.ellipsis)),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 6,left: 10,right: 10),
+                              child: Text(widget.artist,style: GoogleFonts.crimsonPro(fontWeight: FontWeight.bold,fontSize: 14),overflow: TextOverflow.ellipsis)),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 6,left: 10,right: 10),
                               child: CircleAvatar(radius: 2,backgroundColor: Colors.black,),
                             ),
-                            Text(_formatDuration(duration),style: GoogleFonts.crimsonPro(fontSize: 15,fontWeight: FontWeight.w600),),
+                            Text(_formatDuration(widget.duration),style: GoogleFonts.crimsonPro(fontSize: 15,fontWeight: FontWeight.w600),),
                         ],
                       )
                      
@@ -77,22 +119,22 @@ class musicTiles extends StatelessWidget {
                  ),
                  
                ),
-               SizedBox(width: MediaQuery.of(context).size.width * .09,),
+               SizedBox(width: MediaQuery.of(context).size.width * .12,),
                Row(
                  children: [
-                   GestureDetector(
-                         onTap: () {
-                           
-                         },
-                         child: Icon(Icons.favorite_rounded)),
-                       SizedBox(width: 10,),
+                 ValueListenableBuilder(valueListenable: favDbObject.listenable(), builder: (context, value, child) {
+                   bool contains=favDbObject.values.where((element) => element.id==widget.id).isEmpty;
+                   return FavIcon(id: widget.id, isFav: contains);
+                 },),
+                       const SizedBox(width: 10,),
                        GestureDetector(
                          onTap: () {
+                          
                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                             return ThreeDotsTile();
+                             return ThreeDotsTile(index: widget.index,name: widget.name,);
                            },));
                          },
-                         child: Icon(Icons.more_vert))
+                         child: const Icon( Icons.more_vert))
                  ],
                )
              ],

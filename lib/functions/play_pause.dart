@@ -15,7 +15,7 @@ class _AnimatedPlayPauseState extends State<AnimatedPlayPause>
   void initState() {
     super.initState();
     iconController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1000));
+        vsync: this, duration: const Duration(milliseconds: 200));
 
     iconController.forward();
   }

@@ -7,7 +7,7 @@ Container artistTile() {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(200),
         color: Colors.grey,
-        image: DecorationImage(
+        image: const DecorationImage(
           image: NetworkImage("https://i.quotev.com/t6rskyudaaaa.jpg"),
           fit: BoxFit.cover,
         ),
